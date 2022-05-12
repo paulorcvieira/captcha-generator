@@ -12,17 +12,25 @@ button {
   cursor: pointer;
 }
 .container {
+  margin: auto;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 63%;
+  left: 50%;
+}
+.wrapper {
   background-color: #2a2a2d;
   width: 550px;
   position: absolute;
   transform: translate(-50%, -50%);
-  top: 50%;
+  top: 60%;
   left: 50%;
   padding: 4rem;
   border-radius: 8px;
   box-shadow: 0 20px 45px rgba(1, 51,25,0.2);
+  margin: auto;
 }
-.container input[type=text] {
+.wrapper input[type=text] {
   display: block;
   width: 100%;
   border: 2px solid transparent;
@@ -34,13 +42,13 @@ button {
   background: #e8f0fe;
   color: #121214;
 }
-.container input[type=text]:focus {
+.wrapper input[type=text]:focus {
   border-color: #8258e5;
 }
-.container input[type=text]:hover {
+.wrapper input[type=text]:hover {
   border-color: #8258e5;
 }
-.wrapper {
+.wrapper-canvas {
   display: flex;
   align-content: center;
   justify-content: space-between;
@@ -155,4 +163,133 @@ input[type=checkbox]:checked:after {
   height: 0;
   border-radius: 1.5px;
   background-color: #a1a1a1;
+}
+.sheep-container {
+  position: absolute;
+  margin-top: -450px;
+  margin-left: 100px;
+}
+.sheep-wrapper {
+  position: relative;
+}
+.sheep-body {
+  height: 240px;
+  width: 240px;
+  background-color: #ffffff;
+  border-radius: 50%;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100px;
+}
+.sheep-body:before {
+  content: "";
+  position: absolute;
+  width: 75.5px;
+  height: 75.5px;
+  background-color: #ffffff;
+  border-radius: 50%;
+  top: -25px;
+  left: 80px;
+  box-shadow: 0 215px #ffffff,
+  107px 107px #ffffff,
+  -107px 107px #ffffff,
+  -50px 15px #ffffff,
+  50px 15px #ffffff,
+  0 0 #ffffff,
+  88px 50px #ffffff,
+  -88px 50px #ffffff,
+  -50px 200px #ffffff,
+  50px 200px #ffffff,
+  -88px 160px #ffffff,
+  88px 160px #ffffff;
+}
+.sheep-face {
+  background-color: #505050;
+  width: 80px;
+  height: 100px;
+  position: absolute;
+  margin: auto;
+  left: 0;
+  right: 0;
+  top: 70px;
+  border-radius: 30px;
+}
+.sheep-ears {
+  position: absolute;
+  background-color: #303030;
+  height: 50px;
+  width: 50px;
+  border-radius: 45px 0;
+  top: 0;
+  left: -40px;
+}
+.sheep-ears:before {
+  content: "";
+  position: absolute;
+  background-color: #303030;
+  height: 50px;
+  width: 50px;
+  border-radius: 0 45px;
+  top: 0;
+  left: 110px;
+}
+.sheep-eyes {
+  position: absolute;
+  background-color: #252525;
+  height: 10px;
+  width: 10px;
+  left: 10px;
+  top: 5px;
+  border-radius: 50%;
+  box-shadow: 0 0 0 15px #ffffff, 0 0 0 20px #505050;
+}
+.sheep-eyes:before {
+  content: "";
+  position: absolute;
+  background-color: #252525;
+  height: 10px;
+  width: 10px;
+  left: 47px;
+  border-radius: 150%;
+  box-shadow: 0 0 0 15px #ffffff, 0 0 0 20px #505050;
+}
+.sheep-nose {
+  position: absolute;
+  background-color: #404040;
+  height: 10px;
+  width: 16px;
+  left: 32px;
+  top: 60px;
+  border-radius: 3px 3px 0 0;
+  border-bottom: 3.5px solid #252525;
+}
+.sheep-nose:before {
+  content: "";
+  position: absolute;
+  height: 6px;
+  width: 3.5px;
+  background-color: #252525;
+  left: 6.5px;
+  top: 10px;
+}
+.sheep-legs {
+  position: absolute;
+  background-color: #505050;
+  height: 80px;
+  width: 20px;
+  left: 60px;
+  top: 310px;
+  box-shadow: 110px 0 #505050;
+}
+.sheep-shadow {
+  position: absolute;
+  width: 250px;
+  height: 5px;
+  background-color: rgba(61, 49, 0, 0.85);
+  top: 390px;
+  margin: auto;
+  left: 0;
+  right: 0;
+  border-radius: 5px;
 }

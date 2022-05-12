@@ -15,33 +15,48 @@
 <body>
   <div class="container">
     <div class="wrapper">
-      <canvas id="canvas" width="230" height="57"></canvas>
-      <button id="reload-button" type="button">
-        <i class="fa-solid fa-arrow-rotate-right"></i>
-      </button>
-    </div>
-    <input type="text" id="user-input" placeholder="Enter the text in the image" />
-    <button id="submit-button">Submit</button>
-    <div class="terms">
-      <span>Accept terms?</span>
-      <input type="checkbox" id="terms-checkbox" />
-    </div>
-    <div class="details hide" id="details">
-      <div>
-        <strong>Code:</strong>
-        <span id="code-detail"></span>
+      <div class="sheep-container">
+        <div class="sheep-wrapper">
+          <div class="sheep-legs"></div>
+          <div class="sheep-body">
+            <div class="sheep-face">
+              <div class="sheep-ears"></div>
+              <div class="sheep-eyes"></div>
+              <div class="sheep-nose"></div>
+            </div>
+          </div>
+          <div class="sheep-shadow"></div>
+        </div>
       </div>
-      <div>
-        <strong>Browser:</strong>
-        <span id="browser-detail"></span>
+      <div class="wrapper-canvas">
+        <canvas id="canvas" width="230" height="57"></canvas>
+        <button id="reload-button" type="button">
+          <i class="fa-solid fa-arrow-rotate-right"></i>
+        </button>
       </div>
-      <div>
-        <strong>OS:</strong>
-        <span id="os-detail"></span>
+      <input type="text" id="user-input" placeholder="Enter the text in the image" />
+      <button id="submit-button">Submit</button>
+      <div class="terms">
+        <span>Accept terms?</span>
+        <input type="checkbox" id="terms-checkbox" />
       </div>
-      <div>
-        <strong>IP:</strong>
-        <span id="ip-detail"></span>
+      <div class="details hide" id="details">
+        <div>
+          <strong>Code:</strong>
+          <span id="code-detail"></span>
+        </div>
+        <div>
+          <strong>Browser:</strong>
+          <span id="browser-detail"></span>
+        </div>
+        <div>
+          <strong>OS:</strong>
+          <span id="os-detail"></span>
+        </div>
+        <div>
+          <strong>IP:</strong>
+          <span id="ip-detail"></span>
+        </div>
       </div>
     </div>
   </div>
