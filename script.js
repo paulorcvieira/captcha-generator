@@ -2,14 +2,37 @@ let submitButton = document.getElementById('submit-button');
 let userInput = document.getElementById('user-input');
 let canvas = document.getElementById('canvas');
 let reloadButton = document.getElementById('reload-button');
+let browserDetailRef = document.getElementById('browser-detail');
+let detailsRef = document.getElementById('details');
+let osDetailRef = document.getElementById('os-detail');
+let ipDetailRef = document.getElementById('ip-detail');
+let codeDetailRef = document.getElementById('code-detail');
+let termsCheckboxRef = document.getElementById('terms-checkbox');
 let text = "";
+
+const browserList = [
+  { name: "Firefox", value: "Firefox" },
+  { name: "Opera", value: "OPR" },
+  { name: "Edge", value: "Edg" },
+  { name: "Chrome", value: "Chrome" },
+  { name: "Safari", value: "Safari" }
+]
+
+const os = [
+  { name: "Android", value: "Android" },
+  { name: "iPhone", value: "iPhone" },
+  { name: "iPad", value: "iPad" },
+  { name: "Macintosh", value: "Mac" },
+  { name: "Linux", value: "Linux" },
+  { name: "Windows", value: "Win" },
+]
 
 // generate text
 const textGenerator = () => {
   let generatedText = "";
   /* string.fromCharCode gives ASCII value from a give number */
   // total 6 letters hence loop of 3
-  for (let i = 0; i < 3; i++) {
+  for (let i = 0; i < 2; i++) {
     // random number between 65 and 90
     generatedText += String.fromCharCode(randomNumber(65, 90));
     // random number between 97 and 122
@@ -74,16 +97,55 @@ const triggerFunction = () => {
 // call triggerFunction for reload button
 reloadButton.addEventListener('click', triggerFunction);
 
-// call triggerFunction when page loads
-window.onload = () => triggerFunction();
-
 submitButton.addEventListener('click', function () {
+  if (!detailsRef.classList.contains('hide')) {
+    detailsRef.classList.add('hide');
+  }
+  
   if (userInput.value === "") {
     alert("Enter the text in the image!");
+  } else if (!termsCheckboxRef.checked) {
+    alert("Please accept the terms and conditions!");
   } else if (String(userInput.value).toLocaleLowerCase() === text.toLocaleLowerCase()) {
-    alert("Correct code!");
+    codeDetailRef.innerHTML = userInput.value;
+    detailsRef.classList.remove('hide');
+    triggerFunction();
   } else {
     alert("Wrong code!");
     triggerFunction();
   }
 });
+
+let browserChecker = () => {
+  // useragent contains browser details and OS details but we need to separate them
+  let userDetails = navigator.userAgent;
+  fetch('https://api64.ipify.org?format=json').then(response => {
+    Promise.resolve(response.json()).then(data => {
+      ipDetailRef.innerHTML = data.ip;
+    })
+  });
+  for (let i in browserList) {
+    // check if string contains any value from the array
+    if (userDetails.includes(browserList[i].value)) {
+      // extract browser name  and version from the string
+      browserDetailRef.innerHTML = browserList[i].name || "Unknown Browser";
+      break;
+    }
+  }
+  for (let i in os) {
+    // check if string contains any value from the object
+    if (userDetails.includes(os[i].value)) {
+      // extract OS name from object
+      osDetailRef.innerHTML = os[i].name || "Unknown OS";
+      break;
+    }
+  }
+}
+
+window.onload = () => {
+  // call triggerFunction when page loads
+  triggerFunction()
+
+  // call browserChecker when page loads
+  browserChecker();
+};
