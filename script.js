@@ -3,6 +3,7 @@ let userInput = document.getElementById('user-input');
 let canvas = document.getElementById('canvas');
 let reloadButton = document.getElementById('reload-button');
 let browserDetailRef = document.getElementById('browser-detail');
+let locationDetailRef = document.getElementById('location-detail');
 let detailsRef = document.getElementById('details');
 let osDetailRef = document.getElementById('os-detail');
 let ipDetailRef = document.getElementById('ip-detail');
@@ -109,13 +110,19 @@ submitButton.addEventListener('click', function () {
   } else if (String(userInput.value).toLocaleLowerCase() === text.toLocaleLowerCase()) {
     codeDetailRef.innerHTML = userInput.value;
     detailsRef.classList.remove('hide');
+    
+    // generate new captcha
     triggerFunction();
+    
+    // call browserChecker when page loads
+    browserChecker();
   } else {
     alert("Wrong code!");
     triggerFunction();
   }
 });
 
+// get user info
 let browserChecker = () => {
   // useragent contains browser details and OS details but we need to separate them
   let userDetails = navigator.userAgent;
@@ -124,6 +131,43 @@ let browserChecker = () => {
       ipDetailRef.innerHTML = data.ip;
     })
   });
+
+  // error check location
+  const checkError = (error) => {
+    switch (error.code) {
+      case error.PERMISSION_DENIED:
+        locationDetailRef.innerHTML = "Please allow access to location.";
+        break;
+      case error.POSITION_UNAVAILABLE:
+        // usually fired for firefox
+        locationDetailRef.innerHTML = "Location information is unavailable.";
+        break;
+      case error.TIMEOUT:
+        locationDetailRef.innerHTML = "The request to get user location timed out.";
+        break;
+    }
+  }
+
+  // show location
+  const showLocation = async (position) => {
+    // we user the nominatim API for getting actual address from latitude and longitude
+    let response = await fetch(
+      `https://nominatim.openstreetmap.org/reverse?format=json&lat=${position.coords.latitude}&lon=${position.coords.longitude}&format=json`
+    );
+    // store response object in data
+    let data = await response.json();
+    locationDetailRef.innerHTML = `${data.address.city}/${data.address.country}`;
+  }
+
+  // geolocation API is used to get geographical position os a user and is available inside the navigator object
+  if (navigator.geolocation) {
+    // return position (latitude and longitude) of the browser or error
+    navigator.geolocation.getCurrentPosition(showLocation, checkError);
+  } else {
+    // for old browsers i.e IE
+    locationDetailRef.innerHTML = "This browser does not support geolocation.";
+  }
+
   for (let i in browserList) {
     // check if string contains any value from the array
     if (userDetails.includes(browserList[i].value)) {
@@ -145,7 +189,4 @@ let browserChecker = () => {
 window.onload = () => {
   // call triggerFunction when page loads
   triggerFunction()
-
-  // call browserChecker when page loads
-  browserChecker();
 };
