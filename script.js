@@ -9,6 +9,8 @@ let osDetailRef = document.getElementById('os-detail');
 let ipDetailRef = document.getElementById('ip-detail');
 let codeDetailRef = document.getElementById('code-detail');
 let termsCheckboxRef = document.getElementById('terms-checkbox');
+let errorRef = document.querySelector('.error');
+let errorMessageRef = document.getElementById('error-message');
 let text = "";
 
 const browserList = [
@@ -51,6 +53,18 @@ const randomNumber = (min, max) => {
 
 userInput.addEventListener('click', function () {
   this.setSelectionRange(0, this.value.length);
+  hideDetails();
+})
+
+const hideSubmitButton = () => submitButton.classList.add('hide');
+const showSubmitButton = () => submitButton.classList.remove('hide');
+
+userInput.addEventListener('keyup', function () {
+  if (this.value.length === 6) {
+    showSubmitButton();
+  } else if (!submitButton.classList.contains('hide')) {
+    hideSubmitButton();
+  }
 })
 
 // canvas part
@@ -82,11 +96,23 @@ function drawStringOnCanvas(string) {
       100
     );
   }
-
 }
+
+// hide details
+const hideDetails = () => detailsRef.classList.add('hide');
+// show details
+const showDetails = () => detailsRef.classList.remove('hide');
+// hide error message
+const hideErrorMessage = () => errorRef.classList.add('hide');
+// show error message
+const showErrorMessage = () => errorRef.classList.remove('hide');
 
 // initial function
 const triggerFunction = () => {
+  hideDetails();
+  hideErrorMessage();
+  hideSubmitButton();
+
   // clear input
   userInput.value = "";
   text = textGenerator();
@@ -98,27 +124,33 @@ const triggerFunction = () => {
 // call triggerFunction for reload button
 reloadButton.addEventListener('click', triggerFunction);
 
-submitButton.addEventListener('click', function () {
-  if (!detailsRef.classList.contains('hide')) {
-    detailsRef.classList.add('hide');
-  }
+submitButton.addEventListener('click', function (e) {
+  e.preventDefault(); //preventing button from it's default behaviour
+
+  hideDetails();
+  hideErrorMessage();
   
   if (userInput.value === "") {
-    alert("Enter the text in the image!");
+    errorMessageRef.innerHTML = "Enter the captcha code!";
+    showErrorMessage();
   } else if (!termsCheckboxRef.checked) {
-    alert("Please accept the terms and conditions!");
+    errorMessageRef.innerHTML = "Please accept the terms and conditions!";
+    showErrorMessage();
   } else if (String(userInput.value).toLocaleLowerCase() === text.toLocaleLowerCase()) {
+    hideErrorMessage();
     codeDetailRef.innerHTML = userInput.value;
-    detailsRef.classList.remove('hide');
     
     // generate new captcha
     triggerFunction();
+
+    showDetails();
     
     // call browserChecker when page loads
     browserChecker();
   } else {
-    alert("Wrong code!");
     triggerFunction();
+    errorMessageRef.innerHTML = "Captcha not matched. Please try again!";
+    showErrorMessage();
   }
 });
 

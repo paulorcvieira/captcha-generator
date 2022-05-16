@@ -30,22 +30,33 @@ button {
   box-shadow: 0 20px 45px rgba(1, 51,25,0.2);
   margin: auto;
 }
-.wrapper input[type=text] {
-  display: block;
+.text-box {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
   width: 100%;
-  border: 2px solid transparent;
-  font-size: 18px;
-  padding: 10px 7px;
-  border-radius: 8px;
-  outline: none;
   height: 72.38px;
   background: #e8f0fe;
-  color: #121214;
+  padding: 6px;
+  border-radius: 8px;
+  border: 2px solid transparent;
 }
-.wrapper input[type=text]:focus {
+.text-box input[type=text] {
+  display: block;
+  width: 100%;
+  font-size: 26px;
+  outline: none;
+  color: #121214;
+  background: transparent;
+  margin-right: 1rem;
+  padding-left: 1rem;
+  border: none;
+}
+.text-box:focus-within {
   border-color: #8258e5;
 }
-.wrapper input[type=text]:hover {
+.text-box:hover {
   border-color: #8258e5;
 }
 .wrapper-canvas {
@@ -60,13 +71,18 @@ canvas {
   border-radius: 0.5rem;
   height: 72.38px;
   background: #e8f0fe;
+  background-image: url("./captcha-bg.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 canvas:hover {
   border-color: #8258e5;
 }
 button#reload-button {
   font-size: 26px;
-  width: 4.6rem;
+  width: 6rem;
+  height: 72.38px;
   background-color: #2a2a2d;
   border: none;
   border-radius: 0.5rem;
@@ -75,15 +91,13 @@ button#reload-button {
   border: 2px solid #8258e5;
 }
 button#submit-button {
-  width: 100%;
+  width: 160px;
   background-color: #8258e5;
   color: #ffffff;
   font-size: 1.5rem;
   border: none;
-  margin-top: 1rem;
   padding: 0.8rem 0;
   border-radius: 0.5rem;
-  height: 72.38px;
 }
 button#submit-button:hover {
   background-color: #996dff;
@@ -91,6 +105,14 @@ button#submit-button:hover {
 button#reload-button:hover {
   background-color: #996dff;
   border-color: #996dff;
+}
+.error #error-message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #ff0000;
+  font-size: 16px;
+  margin-top: 1rem;
 }
 .details {
   display: flex;

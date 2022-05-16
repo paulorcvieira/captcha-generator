@@ -34,10 +34,15 @@
           <i class="fa-solid fa-arrow-rotate-right"></i>
         </button>
       </div>
-      <input type="text" id="user-input" placeholder="Enter the text in the image" />
-      <button id="submit-button">Submit</button>
+      <div class="text-box">
+        <input type="text" id="user-input" placeholder="Enter the captcha code" minlength="6" maxlength="6" />
+        <button class="hide" id="submit-button">Submit</button>
+      </div>
+      <div class="error hide">
+        <span id="error-message"></span>
+      </div>
       <div class="terms">
-        <span>Accept terms?</span>
+        <span>Accept terms and conditions?</span>
         <input type="checkbox" id="terms-checkbox" />
       </div>
       <div class="details hide" id="details">
