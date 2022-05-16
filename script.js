@@ -12,6 +12,7 @@ let termsCheckboxRef = document.getElementById('terms-checkbox');
 let errorRef = document.querySelector('.error');
 let errorMessageRef = document.getElementById('error-message');
 let text = "";
+let textGhost = "";
 
 const browserList = [
   { name: "Firefox", value: "Firefox" },
@@ -68,15 +69,44 @@ userInput.addEventListener('keyup', function () {
 })
 
 // canvas part
-function drawStringOnCanvas(string) {
+function drawStringOnCanvas(string, stringGhost) {
   // the getContext() function returns the drawing context that has all the drawing properties and functions needed to draw on the canvas
   const ctx = canvas.getContext('2d');
   // clear the canvas
   ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+
   // array of text color
   const textColors = ["rgb(110, 76, 191)", "rgb(0, 0, 0)", "rgb(130, 130, 130)"];
+  // array of ghost text color
+  const textColorsGhost = ["rgba(0, 0, 0, 0.2)", "rgba(110, 76, 191, 0.2)"];
+
   // space between each letter
   const letterSpace = 150 / string.length;
+  // space between each ghost letter
+  const letterSpaceGhost = 250 / stringGhost.length;
+
+  // ghost text
+  for (let i = 0; i < stringGhost.length; i++) {
+    // define initial space on X axis
+    const xInitialSpaceGhost = 30;
+    // set the font and size
+    ctx.font = "italic 30px Roboto Mono";
+    // set the font color
+    ctx.fillStyle = textColorsGhost[randomNumber(0, 1)];
+    // set the text alignment
+    ctx.textAlign = "right";
+    // set the text baseline
+    ctx.textBaseline = "middle";
+    // draw the text
+    ctx.fillText(
+      stringGhost[i],
+      xInitialSpaceGhost + i * letterSpaceGhost,
+      randomNumber(20, 40),
+      100
+    );
+  }
+
+  // text default
   for (let i = 0; i < string.length; i++) {
     // define initial space on X axis
     const xInitialSpace = 25;
@@ -116,9 +146,11 @@ const triggerFunction = () => {
   // clear input
   userInput.value = "";
   text = textGenerator();
+  textGhost = textGenerator();
   // randomize the text so that everytime the position of numbers and small letters is random
   text = [...text].sort(() => Math.random() - 0.5).join('');
-  drawStringOnCanvas(text);
+  textGhost = [...textGhost].sort(() => Math.random() - 0.5).join('');
+  drawStringOnCanvas(text, textGhost);
 }
 
 // call triggerFunction for reload button
