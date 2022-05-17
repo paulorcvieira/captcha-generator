@@ -11,6 +11,7 @@ let codeDetailRef = document.getElementById('code-detail');
 let termsCheckboxRef = document.getElementById('terms-checkbox');
 let errorRef = document.querySelector('.error');
 let errorMessageRef = document.getElementById('error-message');
+let readButtonRef = document.getElementById('read-button');
 let text = "";
 let textGhost = "";
 
@@ -150,8 +151,15 @@ const triggerFunction = () => {
   // randomize the text so that everytime the position of numbers and small letters is random
   text = [...text].sort(() => Math.random() - 0.5).join('');
   textGhost = [...textGhost].sort(() => Math.random() - 0.5).join('');
+  defaultCode = text;
   drawStringOnCanvas(text, textGhost);
 }
+
+readButtonRef.addEventListener('click', () => {
+  for (let i in text) {
+    responsiveVoice.speak(text[i], "Brazilian Portuguese Female")
+  }
+});
 
 // call triggerFunction for reload button
 reloadButton.addEventListener('click', triggerFunction);

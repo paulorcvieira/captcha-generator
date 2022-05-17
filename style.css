@@ -79,7 +79,7 @@ canvas {
 canvas:hover {
   border-color: #8258e5;
 }
-button#reload-button {
+button#read-button {
   font-size: 26px;
   width: 6rem;
   height: 72.38px;
@@ -88,6 +88,17 @@ button#reload-button {
   border-radius: 0.5rem;
   color: #ffffff;
   margin-left: 1rem;
+  border: 2px solid #8258e5;
+}
+button#reload-button {
+  font-size: 26px;
+  width: 6rem;
+  height: 72.38px;
+  background-color: #2a2a2d;
+  border: none;
+  border-radius: 0.5rem;
+  color: #ffffff;
+  margin-left: 0.5rem;
   border: 2px solid #8258e5;
 }
 button#submit-button {
@@ -103,6 +114,10 @@ button#submit-button:hover {
   background-color: #996dff;
 }
 button#reload-button:hover {
+  background-color: #996dff;
+  border-color: #996dff;
+}
+button#read-button:hover {
   background-color: #996dff;
   border-color: #996dff;
 }
