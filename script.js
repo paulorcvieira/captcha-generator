@@ -90,7 +90,7 @@ function drawStringOnCanvas(string, stringGhost) {
     // define initial space on X axis
     const xInitialSpaceGhost = 30;
     // set the font and size
-    ctx.font = "italic 30px Roboto Mono";
+    ctx.font = "italic 33px serif";
     // set the font color
     ctx.fillStyle = textColorsGhost[randomNumber(0, 1)];
     // set the text alignment
